@@ -1,3 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-neutral-900 text-white;
+}
+
+.b-chat-sidebar {
+  @apply flex flex-col w-96 h-screen;
+}
+
+.b-chat-container {
+  @apply flex flex-col-reverse justify-start grow overflow-y-auto gap-y-2 p-4 pt-64 w-full;
+}
+
+.b-chat-row {
+  @apply flex flex-row items-center;
+}
+
+.b-chat-row.sent {
+  @apply justify-end;
+}
+
+.b-chat-row.received {
+  @apply justify-start;
+}
+
+.b-chat-bubble {
+  @apply rounded-xl text-white p-4 w-auto max-w-prose;
+}
+
+.sent .b-chat-bubble {
+  @apply bg-rose-600;
+}
+
+.recieved .b-chat-bubble {
+  @apply bg-neutral-800;
+}
+
+.b-chats-list {
+  @apply h-max overflow-auto flex flex-col grow px-4 gap-y-1;
+}
+
+.b-chat-item {
+  @apply rounded-xl hover:bg-neutral-700/50 hover:cursor-pointer transition flex flex-row h-24 p-2 gap-x-2;
+}
+
+.b-profile-footer {
+  @apply flex flex-row bg-neutral-800 rounded-xl justify-self-end h-16 py-2 px-4 items-center gap-x-4;
+}
