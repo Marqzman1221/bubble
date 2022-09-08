@@ -18,15 +18,16 @@ datasource db {
 }
 
 model Message {
-    id       String    @id @default(cuid())
-    parentId String?   @unique
-    userId   String
-    chatId   String
-    text     String
-    author   User      @relation(fields: [userId], references: [id])
-    parent   Message?  @relation("DirectResponseChain", fields: [parentId], references: [id], onDelete: Restrict, onUpdate: Restrict)
-    children Message[] @relation("DirectResponseChain")
-    Chat     Chat      @relation(fields: [chatId], references: [id])
+    id        String    @id @default(cuid())
+    parentId  String?   @unique
+    userId    String
+    chatId    String
+    text      String
+    createdAt DateTime  @default(now())
+    author    User      @relation(fields: [userId], references: [id])
+    parent    Message?  @relation("DirectResponseChain", fields: [parentId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+    children  Message[] @relation("DirectResponseChain")
+    chat      Chat      @relation(fields: [chatId], references: [id])
 }
 
 model Chat {
