@@ -1,11 +1,11 @@
-import type { NextPage } from "next"
-import Head from "next/head"
-import ChatContainer from "../components/ChatContainer"
-import ChatSidebar from "../components/ChatSidebar"
-import { trpc } from "../utils/trpc"
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import ChatContainer from '../components/ChatContainer'
+import ChatSidebar from '../components/ChatSidebar'
+// import { trpc } from "../utils/trpc"
 
 const Home: NextPage = () => {
-  const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }])
+  // const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }])
 
   return (
     <>
