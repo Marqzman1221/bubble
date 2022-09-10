@@ -1,7 +1,8 @@
-import type { NextPage } from 'next'
+import type { GetServerSidePropsContext, NextPage } from 'next'
 import Head from 'next/head'
 import ChatContainer from '../components/ChatContainer'
 import ChatSidebar from '../components/ChatSidebar'
+import { authGuard } from '../utils/guards/auth'
 // import { trpc } from "../utils/trpc"
 
 const Home: NextPage = () => {
@@ -22,6 +23,10 @@ const Home: NextPage = () => {
       </main>
     </>
   )
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  return await authGuard(context)
 }
 
 export default Home

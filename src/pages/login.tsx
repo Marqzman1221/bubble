@@ -1,4 +1,6 @@
+import { GetServerSidePropsContext } from 'next'
 import { signIn } from 'next-auth/react'
+import { guestGuard } from '../utils/guards/guest'
 
 const Login = () => {
   const providers = [
@@ -32,6 +34,10 @@ const Login = () => {
       </div>
     </div>
   )
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  return await guestGuard(context)
 }
 
 export default Login
