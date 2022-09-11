@@ -1,15 +1,16 @@
-import { createProtectedRouter } from "./protected-router";
+import { z } from 'zod'
+import { createProtectedRouter } from './protected-router'
 
 export const chatsRouter = createProtectedRouter()
-  .query("getChats", {
+  .query('getChats', {
     async resolve({ ctx }) {
       const unsortedChats = await ctx.prisma.chat.findMany({
         where: {
           users: {
             some: {
               id: ctx.session.user.id,
-            }
-          }
+            },
+          },
         },
         include: {
           messages: {
@@ -18,7 +19,7 @@ export const chatsRouter = createProtectedRouter()
                 select: {
                   id: true,
                   name: true,
-                }
+                },
               },
               text: true,
               createdAt: true,
@@ -26,8 +27,20 @@ export const chatsRouter = createProtectedRouter()
             orderBy: {
               createdAt: 'desc',
             },
-            take: 1
-          }
+            take: 1,
+          },
+          users: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+            where: {
+              id: {
+                not: ctx.session.user.id,
+              },
+            },
+          },
         },
       })
 
@@ -44,5 +57,52 @@ export const chatsRouter = createProtectedRouter()
       }
 
       return unsortedChats.sort(sortChats)
-    }
+    },
+  })
+  .query('getChatById', {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      return await ctx.prisma.chat.findFirst({
+        where: {
+          id: input.id,
+          users: {
+            some: {
+              id: ctx.session.user.id,
+            },
+          },
+        },
+        include: {
+          messages: {
+            select: {
+              author: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+              text: true,
+              createdAt: true,
+            },
+            orderBy: {
+              createdAt: 'asc',
+            },
+            take: 50,
+          },
+          users: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+            where: {
+              id: {
+                not: ctx.session.user.id,
+              },
+            },
+          },
+        },
+      })
+    },
   })
