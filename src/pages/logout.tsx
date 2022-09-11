@@ -3,7 +3,7 @@ import { authGuard } from "../utils/guards/auth"
 
 const Logout = () => {
   return (
-    <h1> Logging out...</h1>
+    <h1> Log Out </h1>
   )
 }
 
