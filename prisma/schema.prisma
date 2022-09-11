@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
     provider        = "prisma-client-js"
     previewFeatures = ["referentialIntegrity"]
@@ -8,10 +5,6 @@ generator client {
 
 datasource db {
     provider             = "mysql"
-    // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.text annotations in model Account below
-    // Further reading: 
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url                  = env("DATABASE_URL")
     shadowDatabaseUrl    = env("SHADOW_URL")
     referentialIntegrity = "prisma"
@@ -36,7 +29,6 @@ model Chat {
     messages Message[]
 }
 
-// Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
     userId            String
@@ -64,26 +56,37 @@ model Session {
 }
 
 model User {
-    id                     String         @id @default(cuid())
+    id                     String             @id @default(cuid())
     name                   String?
-    email                  String?        @unique
+    email                  String?            @unique
     emailVerified          DateTime?
     image                  String?
     accounts               Account[]
     sessions               Session[]
     messages               Message[]
     chats                  Chat[]
-    ownedRelationships     Relationship[] @relation("RelationshipOwner")
-    subjectedRelationships Relationship[] @relation("RelationshipSubject")
+    ownedRelationships     UserRelationship[] @relation("UserRelationshipOwner")
+    subjectedRelationships UserRelationship[] @relation("UserRelationshipSubject")
+    sentFriendRequests     FriendRequest[]    @relation("FriendRequestSender")
+    receivedFriendRequests FriendRequest[]    @relation("FriendRequestReceiver")
 }
 
-model Relationship {
+model UserRelationship {
     id        String @id @default(cuid())
     ownerId   String
     subjectId String
-    owner     User   @relation("RelationshipOwner", fields: [ownerId], references: [id])
-    subject   User   @relation("RelationshipSubject", fields: [subjectId], references: [id])
+    owner     User   @relation("UserRelationshipOwner", fields: [ownerId], references: [id])
+    subject   User   @relation("UserRelationshipSubject", fields: [subjectId], references: [id])
     status    Int
+}
+
+model FriendRequest {
+    id         String @id @default(cuid())
+    senderId   String
+    receiverId String
+    sender     User   @relation("FriendRequestSender", fields: [senderId], references: [id])
+    receiver   User   @relation("FriendRequestReceiver", fields: [receiverId], references: [id])
+    createdAt DateTime  @default(now())
 }
 
 model VerificationToken {
@@ -92,4 +95,13 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model ChatToUser {
+    A String
+    B String
+
+    @@unique([A, B], map: "_ChatToUser_AB_unique")
+    @@index([B], map: "_ChatToUser_B_index")
+    @@map("_ChatToUser")
 }
