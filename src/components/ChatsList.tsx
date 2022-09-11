@@ -1,24 +1,31 @@
-import ChatItem from "./ChatItem"
+import ChatItem from './ChatItem'
 
 const ChatsList = () => {
   const chats = [
     {
       users: [
         {
-          first_name: "Thomas",
-          last_name: "Smith",
+          name: 'Thomas Smith',
+          image:
+            'https://lh3.googleusercontent.com/a/AItbvmlO0LSt5NpqaRCTk603v6JQZxAeEwMy12krt2MQ=s96-c',
         },
       ],
-      message: "kabdjlk  doDK LADHNKk dakd jb k3u  xjkqbkbbd b",
+      messages: [
+        {
+          text: 'kabdjlk  doDK LADHNKk dakd jb k3u xjkqbkbbd bkabdjlk  doDK LADHNKk dakd jb k3u  xjkqbkbbd bkabdjlk  doDK LADHNKk dakd jb k3u  xjkqbkbbd bkabdjlk  doDK LADHNKk dakd jb k3u  xjkqbkbbd bkabdjlk  doDK LADHNKk dakd jb k3u  xjkqbkbbd bkabdjlk  doDK LADHNKk dakd jb k3u  xjkqbkbbd b',
+          createdAt: 'Mon',
+        },
+      ],
     },
     {
       users: [
         {
-          first_name: "Juliet",
-          last_name: "Flam-Ross",
+          name: 'Juliet Flam-Ross',
+          image:
+            'https://lh3.googleusercontent.com/a/AItbvmlO0LSt5NpqaRCTk603v6JQZxAeEwMy12krt2MQ=s96-c',
         },
       ],
-      message: "kabdjlk  doDK LADHNKk dakd jb k3u  xjkqbkbbd b",
+      messages: [],
     },
   ]
 

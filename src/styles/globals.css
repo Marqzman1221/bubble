@@ -42,10 +42,6 @@ body {
   @apply h-max overflow-auto flex flex-col grow px-4 gap-y-1;
 }
 
-.b-chat-item {
-  @apply rounded-xl hover:bg-neutral-700/50 hover:cursor-pointer transition flex flex-row h-24 p-2 gap-x-2;
-}
-
 .b-profile-footer {
   @apply flex flex-row bg-neutral-800 rounded-xl justify-self-end h-16 py-2 px-4 items-center gap-x-4;
 }

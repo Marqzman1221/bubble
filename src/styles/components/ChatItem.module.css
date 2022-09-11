@@ -1,0 +1,44 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .b_chat_item {
+    @apply flex flex-row px-4 py-2 gap-x-4  items-center justify-center rounded-xl transition hover:bg-neutral-700/50 hover:cursor-pointer;
+  }
+
+  .avatar {
+    @apply flex-none relative w-12 h-12 !important;
+  }
+
+  .content {
+    @apply flex flex-col grow h-full;
+  }
+
+  .header {
+    @apply flex flex-row items-center;
+  }
+
+  .title {
+    @apply grow font-bold;
+  }
+
+  .timestamp {
+    @apply flex-none font-light text-sm justify-end text-white/50;
+  }
+
+  .subtitle {
+    @apply font-light text-sm text-ellipsis overflow-hidden whitespace-pre-wrap h-10 text-white/50;
+  }
+}
+
+/* .b-chat-list-item {
+  @apply flex
+  flex-row
+  h-24 
+  p-2
+  gap-x-2
+  rounded-xl 
+  transition 
+  hover:bg-neutral-700/50 
+  hover:cursor-pointer;
+} */
